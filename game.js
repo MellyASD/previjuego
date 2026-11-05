@@ -61,8 +61,8 @@ const speed = 6;
 
 let onGround = false;
 let jumpsRemaining = 2;
-let lastTouchTime = 0;
 let activeTouchKey;
+let touchStartTime = 0;
 
 /* ==========================================
    CONTROLES
@@ -115,17 +115,7 @@ game.addEventListener("pointerdown", (event)=>{
 
     event.preventDefault();
 
-    const now = performance.now();
-    const isDoubleTap = now - lastTouchTime < 320;
-    lastTouchTime = now;
-
-    if(isDoubleTap){
-        keys["ArrowLeft"] = false;
-        keys["ArrowRight"] = false;
-        activeTouchKey = undefined;
-        jump();
-        return;
-    }
+    touchStartTime = performance.now();
 
     activeTouchKey =
         event.clientX < window.innerWidth / 2
@@ -143,6 +133,12 @@ game.addEventListener("pointerup", (event)=>{
     }
 
     event.preventDefault();
+
+    if(
+        performance.now() - touchStartTime < 250
+    ){
+        jump();
+    }
 
     if(activeTouchKey){
         keys[activeTouchKey] = false;
@@ -929,10 +925,17 @@ function updatePlayer(){
 
 function updateCamera(){
 
-    game.scrollLeft =
-    Math.max(
-        0,
-        playerX - 400
+    const viewportWidth = game.clientWidth;
+    const worldWidth = world.offsetWidth;
+    const targetScroll =
+    playerX + 35 - (viewportWidth / 2);
+
+    game.scrollLeft = Math.max(
+    0,
+    Math.min(
+        targetScroll,
+        worldWidth - viewportWidth
+    )
     );
 
 }
