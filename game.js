@@ -22,11 +22,11 @@ const victoryScreen = document.getElementById("victoryScreen");
 const gameOverScreen = document.getElementById("gameOver");
 
 const startButton = document.getElementById("startButton");
-const touchControls = document.getElementById("touchControls");
 
 const boss = document.getElementById("boss");
 const bossObjective = document.getElementById("bossObjective");
 const bossHealthEl = document.getElementById("bossHealth");
+const bossMission = document.getElementById("bossMission");
 
 let audioContext;
 let backgroundMusicTimer;
@@ -61,6 +61,8 @@ const speed = 6;
 
 let onGround = false;
 let jumpsRemaining = 2;
+let lastTouchTime = 0;
+let activeTouchKey;
 
 /* ==========================================
    CONTROLES
@@ -105,36 +107,55 @@ document.addEventListener("keyup", (e) => {
 
 });
 
-document.querySelectorAll(".touchButton").forEach(button=>{
+game.addEventListener("pointerdown", (event)=>{
 
-    const key = button.dataset.key;
+    if(event.pointerType !== "touch" || gamePaused){
+        return;
+    }
 
-    const press = (event)=>{
+    event.preventDefault();
 
-        event.preventDefault();
+    const now = performance.now();
+    const isDoubleTap = now - lastTouchTime < 320;
+    lastTouchTime = now;
 
-        if(button.dataset.action === "jump"){
-            jump();
-            return;
-        }
+    if(isDoubleTap){
+        keys["ArrowLeft"] = false;
+        keys["ArrowRight"] = false;
+        activeTouchKey = undefined;
+        jump();
+        return;
+    }
 
-        keys[key] = true;
-        button.classList.add("touchPressed");
+    activeTouchKey =
+        event.clientX < window.innerWidth / 2
+            ? "ArrowLeft"
+            : "ArrowRight";
 
-    };
+    keys[activeTouchKey] = true;
 
-    const release = (event)=>{
+});
 
-        event.preventDefault();
-        keys[key] = false;
-        button.classList.remove("touchPressed");
+game.addEventListener("pointerup", (event)=>{
 
-    };
+    if(event.pointerType !== "touch"){
+        return;
+    }
 
-    button.addEventListener("pointerdown", press);
-    button.addEventListener("pointerup", release);
-    button.addEventListener("pointercancel", release);
-    button.addEventListener("pointerleave", release);
+    event.preventDefault();
+
+    if(activeTouchKey){
+        keys[activeTouchKey] = false;
+        activeTouchKey = undefined;
+    }
+
+});
+
+game.addEventListener("pointercancel", ()=>{
+
+    keys["ArrowLeft"] = false;
+    keys["ArrowRight"] = false;
+    activeTouchKey = undefined;
 
 });
 
@@ -928,6 +949,7 @@ function checkBoss(){
 
     if(bossPhase === 0){
         bossPhase = 1;
+        bossMission.style.display = "flex";
         bossObjective.textContent =
             "¡Derrota al jefe saltando sobre él 5 veces!";
         boss.className = "bossPhase1";
@@ -1006,7 +1028,6 @@ startButton.onclick = ()=>{
     .style.display = "none";
 
     gameStarted = true;
-    touchControls.style.display = "flex";
     if(!audioContext){
         audioContext = new AudioContext();
     }

@@ -550,7 +550,7 @@ body{
     bottom:300px;
     width:300px;
     padding:12px;
-    display:flex;
+    display:none;
     flex-direction:column;
     gap:4px;
     color:white;
@@ -1066,43 +1066,6 @@ body{
 
 }
 
-#touchControls{
-
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:18px;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    gap:18px;
-    z-index:9998;
-    pointer-events:none;
-
-}
-
-.touchButton{
-
-    width:64px;
-    height:58px;
-    border:1px solid rgba(255,255,255,.55);
-    border-radius:18px;
-    background:rgba(54, 16, 92, .72);
-    color:white;
-    font-size:26px;
-    box-shadow:
-    0 0 14px rgba(255, 72, 207, .6);
-    pointer-events:auto;
-    touch-action:none;
-    user-select:none;
-}
-
-.touchButton:active,
-.touchPressed{
-    background:rgba(225, 43, 154, .9);
-    transform:scale(.94);
-}
-
 /* =====================================
    RESPONSIVE
 ===================================== */
@@ -1111,10 +1074,6 @@ body{
 
     body{
         overflow:hidden;
-    }
-
-    #touchControls{
-        display:flex;
     }
 
     #valuesPanel{
