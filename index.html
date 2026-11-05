@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>🏆 Misión Valores: Héroe Corporativo</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ==========================
+         PANTALLA DE INICIO
+    =========================== -->
+
+    <div id="welcomeScreen">
+
+        <div class="welcome-content">
+
+            <img
+                class="welcome-logo"
+                src="logo.png"
+                alt="Logo de la organización">
+
+            <h1>
+                MISIÓN VALORES CORPORATIVOS: PREVISORA SEGUROS
+            </h1>
+
+            <h2>
+                La misión de las 7 monedas
+            </h2>
+
+            <p>
+                El Doctor Antivalor ha robado los valores
+                corporativos de la organización.
+            </p>
+
+            <p>
+                Tu misión será recuperar:
+            </p>
+
+            <ul class="values-list">
+                <li>🪙 Honestidad</li>
+                <li>🪙 Respeto</li>
+                <li>🪙 Compromiso</li>
+                <li>🪙 Diligencia</li>
+                <li>🪙 Justicia</li>
+                <li>🪙 Resiliencia</li>
+                <li>🪙 Solidaridad</li>
+            </ul>
+
+            <button id="startButton">
+                🚀 COMENZAR AVENTURA
+            </button>
+
+            <div class="controls">
+
+                <h3>Controles</h3>
+
+                <p>
+                    ⬅️ ➡️ Moverse
+                </p>
+
+                <p>
+                    SPACE Saltar / doble salto
+                </p>
+
+                <p>
+                    🪙 Recoge monedas para responder preguntas
+                </p>
+
+                <div class="mobileInstructions">
+                    <h3>📱 Cómo jugar en móvil</h3>
+                    <p>
+                        ◀ Mantén pulsado para moverte a la izquierda
+                    </p>
+                    <p>
+                        ▶ Mantén pulsado para moverte a la derecha
+                    </p>
+                    <p>
+                        ⬆ Toca para saltar; puedes tocarlo dos veces para hacer doble salto
+                    </p>
+                    <p>
+                        Toca las monedas y responde las preguntas para recuperar los valores.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================
+         HUD
+    =========================== -->
+
+    <div id="hud">
+
+        <div class="hud-card">
+            ⭐ Puntos:
+            <span id="score">0</span>
+        </div>
+
+        <div class="hud-card">
+            ❤️ Vidas:
+            <span id="lives">3</span>
+        </div>
+
+        <div class="hud-card">
+            🪙 Valores:
+            <span id="coinsCount">0</span>/7
+        </div>
+
+    </div>
+
+    <!-- ==========================
+         PANEL DE PROGRESO
+    =========================== -->
+
+    <div id="valuesPanel">
+
+        <h3>Valores Recuperados</h3>
+
+        <div
+            id="val1"
+            class="valueItem">
+            Honestidad
+        </div>
+
+        <div
+            id="val2"
+            class="valueItem">
+            Respeto
+        </div>
+
+        <div
+            id="val3"
+            class="valueItem">
+            Compromiso
+        </div>
+
+        <div
+            id="val4"
+            class="valueItem">
+            Diligencia
+        </div>
+
+        <div
+            id="val5"
+            class="valueItem">
+            Justicia
+        </div>
+
+        <div
+            id="val6"
+            class="valueItem">
+            Resiliencia
+        </div>
+
+        <div
+            id="val7"
+            class="valueItem">
+            Solidaridad
+        </div>
+
+    </div>
+
+    <!-- ==========================
+         JUEGO
+    =========================== -->
+
+    <main id="game">
+
+        <div id="world">
+
+            <!-- cielo -->
+            <div class="sky"></div>
+
+            <!-- nubes -->
+            <div
+                class="cloud"
+                style="top:100px;">
+                ☁️
+            </div>
+
+            <div
+                class="cloud"
+                style="top:220px;">
+                ☁️
+            </div>
+
+            <div
+                class="cloud"
+                style="top:150px;">
+                ☁️
+            </div>
+
+            <!-- montañas -->
+
+            <div
+                class="mountain"
+                style="left:500px;">
+                ⛰️
+            </div>
+
+            <div
+                class="mountain"
+                style="left:2200px;">
+                ⛰️
+            </div>
+
+            <div
+                class="mountain"
+                style="left:4200px;">
+                ⛰️
+            </div>
+
+            <!-- suelo -->
+
+            <div class="ground"></div>
+
+            <!-- jugador -->
+
+            <div id="player">
+
+                🧑‍💼
+
+            </div>
+
+            <!-- jefe final -->
+
+            <div id="boss">
+
+                😈
+
+            </div>
+
+            <div id="bossMission">
+                <strong>JEFE FINAL</strong>
+                <span id="bossObjective">Recupera los 7 valores para iniciar la batalla</span>
+                <span id="bossHealth">Vida: 5/5</span>
+            </div>
+
+            <!--
+            Estos elementos serán creados
+            dinámicamente por game.js
+
+            - plataformas
+            - monedas
+            - enemigos
+            - efectos
+            -->
+
+        </div>
+
+    </main>
+
+    <div id="touchControls" style="display:none" aria-label="Controles táctiles">
+        <button class="touchButton" data-key="ArrowLeft" aria-label="Mover a la izquierda">◀</button>
+        <button class="touchButton jumpButton" data-action="jump" aria-label="Saltar">⬆</button>
+        <button class="touchButton" data-key="ArrowRight" aria-label="Mover a la derecha">▶</button>
+    </div>
+
+    <!-- ==========================
+         MODAL PREGUNTAS
+    =========================== -->
+
+    <div id="quizModal">
+
+        <div id="quizCard">
+
+            <div class="quiz-header">
+
+                <h2 id="quizTitle">
+
+                    Valor Corporativo
+
+                </h2>
+
+            </div>
+
+            <p id="quizText">
+
+            </p>
+
+            <div id="quizAnswers">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================
+         VICTORIA
+    =========================== -->
+
+    <div id="victoryScreen">
+
+        <div class="victory-container">
+
+            <h1>
+
+                🏆 MISIÓN COMPLETADA
+
+            </h1>
+
+            <h2>
+
+                Héroe Corporativo
+
+            </h2>
+
+            <p>
+
+                Has recuperado los siete
+                valores institucionales.
+
+            </p>
+
+            <ul>
+
+                <li>✅ Honestidad</li>
+                <li>✅ Respeto</li>
+                <li>✅ Compromiso</li>
+                <li>✅ Diligencia</li>
+                <li>✅ Justicia</li>
+                <li>✅ Resiliencia</li>
+                <li>✅ Solidaridad</li>
+
+            </ul>
+
+            <button onclick="location.reload()">
+
+                🔄 JUGAR DE NUEVO
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================
+         GAME OVER
+    =========================== -->
+
+    <div id="gameOver">
+
+        <div class="game-over-card">
+
+            <h1>
+
+                ☠️ GAME OVER
+
+            </h1>
+
+            <p>
+
+                Has perdido todas tus vidas.
+
+            </p>
+
+            <button onclick="location.reload()">
+
+                🔄 REINTENTAR
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================
+         AUDIO OPCIONAL
+    =========================== -->
+
+    <audio
+        id="successSound"
+        preload="auto">
+    </audio>
+
+    <audio
+        id="jumpSound"
+        preload="auto">
+    </audio>
+
+    <audio
+        id="gameOverSound"
+        preload="auto">
+    </audio>
+
+    <!-- ==========================
+         MOTOR DEL JUEGO
+    =========================== -->
+
+    <script src="game.js"></script>
+
+</body>
+</html>

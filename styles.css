@@ -1,0 +1,1160 @@
+/* =====================================
+   RESET
+===================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+}
+
+/* =====================================
+   CUERPO
+===================================== */
+
+body{
+    background:
+    linear-gradient(
+        135deg,
+        #32105c 0%,
+        #7b1fa2 45%,
+        #d81b91 100%
+    );
+}
+
+/* =====================================
+   GAME
+===================================== */
+
+#game{
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+    position:relative;
+    touch-action:none;
+}
+
+#world{
+    width:6000px;
+    height:100%;
+    position:absolute;
+}
+
+/* =====================================
+   FONDO
+===================================== */
+
+.sky{
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+        #35105f 0%,
+        #8224a8 52%,
+        #e12b9a 100%
+    );
+}
+
+/* =====================================
+   NUBES
+===================================== */
+
+.cloud{
+
+    position:absolute;
+
+    font-size:90px;
+
+    opacity:.8;
+
+    animation:
+    cloudMove 55s linear infinite;
+
+}
+
+@keyframes cloudMove{
+
+    from{
+        transform:translateX(-300px);
+    }
+
+    to{
+        transform:translateX(6500px);
+    }
+
+}
+
+/* =====================================
+   MONTAÑAS
+===================================== */
+
+.mountain{
+
+    position:absolute;
+
+    bottom:100px;
+
+    font-size:220px;
+
+    opacity:.20;
+
+    filter:drop-shadow(
+        0 0 10px rgba(0,0,0,.15)
+    );
+
+}
+
+/* =====================================
+   SUELO
+===================================== */
+
+.ground{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:100px;
+
+    background:
+    linear-gradient(
+        #3fc04d,
+        #2f9a3a
+    );
+
+    border-top:
+    8px solid #2d7f33;
+
+}
+
+/* =====================================
+   HUD
+===================================== */
+
+#hud{
+
+    position:fixed;
+
+    top:10px;
+    left:10px;
+
+    display:flex;
+
+    gap:12px;
+
+    z-index:999;
+
+}
+
+.hud-card{
+
+    background:white;
+
+    padding:12px 18px;
+
+    border-radius:12px;
+
+    box-shadow:
+    0 4px 15px rgba(0,0,0,.15);
+
+    font-weight:700;
+
+}
+
+/* =====================================
+   PANEL LATERAL
+===================================== */
+
+#valuesPanel{
+
+    position:fixed;
+
+    top:85px;
+    left:10px;
+
+    width:240px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(54, 16, 92, .78),
+        rgba(150, 28, 137, .62)
+    );
+
+    border-radius:15px;
+
+    padding:15px;
+
+    z-index:999;
+
+    border:1px solid rgba(255, 157, 241, .55);
+
+    box-shadow:
+    0 0 12px rgba(255, 72, 207, .7),
+    0 0 32px rgba(166, 55, 215, .45),
+    0 8px 24px rgba(30, 5, 48, .35);
+
+    backdrop-filter:blur(8px);
+
+}
+
+#valuesPanel h3{
+
+    margin-bottom:10px;
+
+    text-align:center;
+
+    color:#ffe3ff;
+
+    text-shadow:
+    0 0 8px rgba(255, 126, 234, .9);
+
+}
+
+.valueItem{
+
+    background:
+    rgba(255, 220, 251, .16);
+
+    border:1px solid rgba(255, 198, 247, .24);
+
+    border-radius:8px;
+
+    padding:10px;
+
+    margin-bottom:8px;
+
+    transition:.3s;
+
+    font-weight:600;
+    color:#fff1ff;
+    text-shadow:0 1px 3px rgba(45, 0, 60, .8);
+
+}
+
+.valueCompleted{
+
+    background:
+    linear-gradient(
+        90deg,
+        rgba(255, 183, 77, .85),
+        rgba(255, 79, 181, .82)
+    );
+
+    color:white;
+
+    border-color:rgba(255, 231, 154, .85);
+    box-shadow:
+    0 0 10px rgba(255, 177, 80, .75);
+
+}
+
+/* =====================================
+   JUGADOR
+===================================== */
+
+#player{
+
+    position:absolute;
+
+    width:70px;
+    height:70px;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    font-size:58px;
+
+    z-index:150;
+
+    transition:
+    transform .08s linear;
+
+}
+
+.playerHit{
+    animation:
+    playerDamage .42s ease-out;
+    filter:
+    drop-shadow(0 0 12px #ff2638);
+    z-index:200;
+}
+
+@keyframes playerDamage{
+
+    0%{
+        transform:translateX(0) rotate(0) scale(1);
+        opacity:1;
+    }
+
+    25%{
+        transform:translateX(-18px) rotate(-12deg) scale(1.08);
+        opacity:.45;
+    }
+
+    50%{
+        transform:translateX(14px) rotate(10deg) scale(1);
+        opacity:1;
+    }
+
+    75%{
+        transform:translateX(-8px) rotate(-6deg);
+        opacity:.5;
+    }
+
+    100%{
+        transform:translateX(0) rotate(0);
+        opacity:1;
+    }
+
+}
+
+.enemyHit{
+    animation:
+    enemyImpact .42s ease-out;
+    filter:
+    drop-shadow(0 0 12px #ff6b00);
+}
+
+@keyframes enemyImpact{
+
+    0%{
+        transform:translateX(0) scale(1);
+    }
+
+    50%{
+        transform:translateX(16px) scale(1.2) rotate(12deg);
+    }
+
+    100%{
+        transform:translateX(0) scale(1);
+    }
+
+}
+
+.collisionShake{
+    animation:
+    collisionShake .42s ease-out;
+}
+
+@keyframes collisionShake{
+
+    0%,
+    100%{
+        transform:translateX(0);
+    }
+
+    20%{
+        transform:translateX(-8px);
+    }
+
+    40%{
+        transform:translateX(8px);
+    }
+
+    60%{
+        transform:translateX(-5px);
+    }
+
+    80%{
+        transform:translateX(5px);
+    }
+
+}
+
+/* =====================================
+   MONEDAS
+===================================== */
+
+.coin{
+
+    position:absolute;
+
+    width:50px;
+    height:50px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:40px;
+
+    z-index:120;
+
+    animation:
+    coinSpin 1s ease-in-out infinite alternate;
+
+}
+
+@keyframes coinSpin{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-12px);
+    }
+
+}
+
+/* =====================================
+   ENEMIGOS
+===================================== */
+
+.enemy{
+
+    position:absolute;
+
+    width:60px;
+    height:60px;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    font-size:45px;
+
+    z-index:120;
+
+    animation:
+    enemyBounce .6s infinite alternate;
+
+}
+
+@keyframes enemyBounce{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-8px);
+    }
+
+}
+
+/* =====================================
+   BOSS
+===================================== */
+
+#boss{
+
+    position:absolute;
+
+    left:5600px;
+    bottom:100px;
+
+    font-size:140px;
+
+    z-index:150;
+
+    animation:
+    bossIdle 1.2s infinite alternate;
+    transition:
+    filter .3s ease,
+    transform .3s ease;
+
+}
+
+.bossDamaged{
+    animation:
+    bossDamage .35s ease-out;
+}
+
+.bossDefeated{
+    left:5600px;
+    bottom:100px;
+    font-size:140px;
+    z-index:150;
+    animation:
+    bossVictory 1s ease-in-out infinite alternate;
+}
+
+@keyframes bossDamage{
+
+    0%{
+        transform:scale(1);
+        filter:brightness(1);
+    }
+
+    50%{
+        transform:scale(1.25) rotate(-8deg);
+        filter:brightness(2) drop-shadow(0 0 18px #ff2638);
+    }
+
+    100%{
+        transform:scale(1);
+        filter:brightness(1);
+    }
+
+}
+
+@keyframes bossVictory{
+
+    from{
+        transform:translateY(0) scale(1);
+    }
+
+    to{
+        transform:translateY(-18px) scale(1.12);
+    }
+
+}
+
+.bossAttack{
+    position:absolute;
+    width:45px;
+    height:45px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:36px;
+    z-index:160;
+    animation:
+    bossAttackGlow .3s infinite alternate;
+}
+
+@keyframes bossAttackGlow{
+
+    from{
+        transform:scale(1) rotate(-8deg);
+        filter:drop-shadow(0 0 3px #ff6b00);
+    }
+
+    to{
+        transform:scale(1.18) rotate(8deg);
+        filter:drop-shadow(0 0 12px #ff2638);
+    }
+
+}
+
+#bossMission{
+    position:absolute;
+    left:5480px;
+    bottom:300px;
+    width:300px;
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    color:white;
+    background:rgba(60, 16, 86, .9);
+    border:2px solid #ffca3a;
+    border-radius:12px;
+    text-align:center;
+    z-index:170;
+    box-shadow:0 0 18px rgba(255, 202, 58, .45);
+}
+
+#bossHealth{
+    color:#ff6b6b;
+    font-weight:700;
+}
+
+.bossPhase1{
+    filter:drop-shadow(0 0 8px #7b2cbf);
+}
+
+.bossPhase2{
+    filter:drop-shadow(0 0 18px #ff6b00);
+    animation:
+    bossRage .45s infinite alternate;
+}
+
+.bossPhase3{
+    filter:drop-shadow(0 0 25px #e60026);
+    animation:
+    bossFinal .25s infinite alternate;
+}
+
+@keyframes bossIdle{
+
+    from{
+        transform:translateY(0);
+    }
+
+    @keyframes bossRage{
+
+        from{
+            transform:translateY(0) scale(1);
+        }
+
+        to{
+            transform:translateY(-14px) scale(1.08) rotate(-3deg);
+        }
+
+    }
+
+    @keyframes bossFinal{
+
+        from{
+            transform:translateY(0) scale(1.05) rotate(-4deg);
+        }
+
+        to{
+            transform:translateY(-18px) scale(1.16) rotate(4deg);
+        }
+
+    }
+    to{
+        transform:translateY(-10px);
+    }
+
+}
+
+/* =====================================
+   PLATAFORMAS
+===================================== */
+
+.platform{
+
+    position:absolute;
+
+    height:25px;
+
+    background:
+    linear-gradient(
+        #9c6a3a,
+        #704319
+    );
+
+    border-radius:6px;
+
+    border-bottom:
+    5px solid #503114;
+
+    box-shadow:
+    0 2px 8px rgba(0,0,0,.2);
+
+}
+
+/* =====================================
+   MODAL PREGUNTAS
+===================================== */
+
+#quizModal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    rgba(0,0,0,.75);
+
+    z-index:99999;
+
+    align-items:center;
+    justify-content:center;
+
+}
+
+#quizCard{
+
+    width:750px;
+
+    max-width:90%;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.25);
+
+}
+
+#quizTitle{
+
+    color:#0056b8;
+
+    margin-bottom:15px;
+
+}
+
+#quizText{
+
+    font-size:18px;
+
+    margin-bottom:15px;
+
+    line-height:1.5;
+
+}
+
+.answerBtn{
+
+    width:100%;
+
+    border:none;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    margin-top:10px;
+
+    background:#ececec;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    font-size:16px;
+
+}
+
+.answerBtn:hover{
+
+    background:#cbe8ff;
+
+}
+
+/* =====================================
+   PANTALLA INICIO
+===================================== */
+
+#welcomeScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow-y:auto;
+
+    z-index:999999;
+
+    background:
+    linear-gradient(
+        135deg,
+        #32105c,
+        #8e249f 52%,
+        #e52b9d
+    );
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:flex-start;
+
+}
+
+.welcome-content{
+
+    text-align:center;
+
+    max-width:900px;
+
+    width:100%;
+    padding:34px 30px 42px;
+    margin:auto;
+
+}
+
+.welcome-logo{
+
+    display:block;
+
+    width:clamp(92px, 13vw, 150px);
+    height:auto;
+
+    margin:0 auto 18px;
+
+    border-radius:28%;
+
+    box-shadow:
+    0 0 14px rgba(255, 213, 255, .9),
+    0 0 34px rgba(255, 70, 207, .7);
+
+    animation:
+    logoFloat 2.8s ease-in-out infinite alternate;
+
+}
+
+@keyframes logoFloat{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-7px);
+    }
+
+}
+
+.welcome-content h1{
+
+    font-size:clamp(38px, 5.3vw, 65px);
+
+    margin-bottom:20px;
+    line-height:1.05;
+
+}
+
+.welcome-content h2{
+
+    margin-bottom:20px;
+
+}
+
+.welcome-content p{
+
+    margin-bottom:12px;
+
+    line-height:1.6;
+
+}
+
+.mobileInstructions{
+
+    display:none;
+
+    margin-top:18px;
+    padding:12px 16px;
+    border:1px solid rgba(255, 213, 255, .4);
+    border-radius:12px;
+    background:rgba(54, 16, 92, .35);
+    box-shadow:0 0 14px rgba(255, 72, 207, .35);
+
+}
+
+.mobileInstructions h3{
+
+    margin-bottom:8px;
+
+}
+
+.mobileInstructions p{
+
+    margin-bottom:6px;
+    line-height:1.35;
+
+}
+
+.values-list{
+
+    list-style:none;
+
+    margin-top:20px;
+
+    margin-bottom:25px;
+
+}
+
+.values-list li{
+
+    margin:7px 0;
+
+}
+
+#startButton{
+
+    background:#FFD700;
+
+    color:black;
+
+    border:none;
+
+    padding:18px 34px;
+
+    border-radius:12px;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+#startButton:hover{
+
+    background:#ffe95f;
+
+}
+
+.controls{
+
+    margin-top:25px;
+}
+
+/* =====================================
+   VICTORIA
+===================================== */
+
+#victoryScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    z-index:999999;
+
+    background:
+    linear-gradient(
+        135deg,
+        #32105c 0%,
+        #8e249f 52%,
+        #e52b9d 100%
+    );
+
+    color:white;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+}
+
+.victory-container{
+
+    max-width:900px;
+    width:min(92vw, 900px);
+    max-height:100vh;
+    overflow-y:auto;
+
+    padding:32px 24px;
+
+}
+
+.victory-container h1{
+
+    font-size:clamp(34px, 7vw, 70px);
+
+    margin-bottom:20px;
+    line-height:1.08;
+
+}
+
+.victory-container h2{
+
+    margin-bottom:20px;
+    font-size:clamp(22px, 4vw, 34px);
+
+}
+
+.victory-container ul{
+
+    list-style:none;
+
+    margin:25px 0;
+
+}
+
+.victory-container li{
+
+    margin:8px 0;
+
+    font-size:20px;
+
+}
+
+.victory-container button{
+
+    margin-top:20px;
+
+    border:none;
+
+    background:#FFD700;
+
+    padding:16px 30px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+/* =====================================
+   GAME OVER
+===================================== */
+
+#gameOver{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    z-index:999999;
+
+    background:
+    linear-gradient(
+        135deg,
+        #32105c 0%,
+        #8e249f 52%,
+        #e52b9d 100%
+    );
+
+    color:white;
+
+    justify-content:center;
+    align-items:center;
+
+}
+
+.game-over-card{
+
+    text-align:center;
+    width:min(92vw, 700px);
+    padding:32px 24px;
+    border:1px solid rgba(255, 213, 255, .5);
+    border-radius:20px;
+    background:rgba(54, 16, 92, .42);
+    box-shadow:
+    0 0 18px rgba(255, 72, 207, .7),
+    0 0 42px rgba(166, 55, 215, .45);
+    backdrop-filter:blur(8px);
+
+}
+
+.game-over-card h1{
+
+    font-size:clamp(38px, 9vw, 80px);
+
+    margin-bottom:20px;
+    line-height:1.08;
+
+}
+
+.game-over-card p{
+
+    margin-bottom:20px;
+    font-size:clamp(16px, 3vw, 22px);
+
+}
+
+.game-over-card button{
+
+    padding:15px 30px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+}
+
+#touchControls{
+
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:18px;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+    z-index:9998;
+    pointer-events:none;
+
+}
+
+.touchButton{
+
+    width:64px;
+    height:58px;
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:18px;
+    background:rgba(54, 16, 92, .72);
+    color:white;
+    font-size:26px;
+    box-shadow:
+    0 0 14px rgba(255, 72, 207, .6);
+    pointer-events:auto;
+    touch-action:none;
+    user-select:none;
+}
+
+.touchButton:active,
+.touchPressed{
+    background:rgba(225, 43, 154, .9);
+    transform:scale(.94);
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media(max-width:900px){
+
+    body{
+        overflow:hidden;
+    }
+
+    #touchControls{
+        display:flex;
+    }
+
+    #valuesPanel{
+        display:none;
+    }
+
+    .welcome-content h1{
+        font-size:clamp(30px, 9vw, 42px);
+    }
+
+    .mobileInstructions{
+        display:block;
+    }
+
+    .hud-card{
+        font-size:14px;
+        padding:8px;
+    }
+
+    #hud{
+        left:6px;
+        right:6px;
+        gap:5px;
+        justify-content:center;
+    }
+
+    .hud-card{
+        font-size:12px;
+        padding:7px 9px;
+    }
+
+    #quizCard{
+        width:95%;
+    }
+
+    #bossMission{
+        left:calc(100vw - 245px);
+        width:230px;
+        bottom:250px;
+        font-size:12px;
+    }
+
+}
